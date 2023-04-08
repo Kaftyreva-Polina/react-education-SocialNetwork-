@@ -1,15 +1,21 @@
 import React from "react";
 import s from "./MyPosts.module.css";
-import {Post} from "./Post/Post";
+import {Post, PostsType} from "./Post/Post";
 
-export const MyPosts = () => {
 
-    let postData = [
-        {id: 1, message: "Hi, how are you?", likesCounter: 15},
-        {id: 2, message: "It's my first post", likesCounter: 20}
-    ]
+export type PostsForMapType = {
+    posts: Array<PostsType>
+}
 
-    let postsElements = postData.map(p => <Post message={p.message} likesCounter={p.likesCounter}/>)
+export const MyPosts = (props: PostsForMapType) => {
+
+
+    // let posts = [
+    //     {id: 1, message: "Hi, how are you?", likesCounter: 15},
+    //     {id: 2, message: "It's my first post", likesCounter: 20}
+    // ]
+
+    let postsElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCounter={p.likesCounter}/>)
 
     return (
         <div className={s.postBlock}>
