@@ -1,19 +1,10 @@
 import React from "react";
 import s from "./MyPosts.module.css";
-import {Post, PostsType} from "./Post/Post";
+import {Post} from "./Post/Post";
+import {ProfilePageType} from "../../../redux/state";
 
 
-export type PostsForMapType = {
-    posts: Array<PostsType>
-}
-
-export const MyPosts = (props: PostsForMapType) => {
-
-
-    // let posts = [
-    //     {id: 1, message: "Hi, how are you?", likesCounter: 15},
-    //     {id: 2, message: "It's my first post", likesCounter: 20}
-    // ]
+export const MyPosts = (props: ProfilePageType) => {
 
     let postsElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCounter={p.likesCounter}/>)
 
@@ -27,7 +18,7 @@ export const MyPosts = (props: PostsForMapType) => {
                 </div>
             </div>
             <div className={s.posts}>
-                { postsElements }
+                {postsElements}
             </div>
         </div>
 
