@@ -16,22 +16,22 @@ export type AppType = {
 const App = (props: AppType) => {
 
     return (
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className="app-wrapper-content">
-                    <Route path="/dialogs"
-                           render={() => <Dialogs
-                               dialogs={props.state.dialogsPage.dialogs}
-                               messages={props.state.dialogsPage.messages}/>}/>
-                    <Route path="/profile"
-                           render={() => <Profile
-                               posts={props.state.profilePage.posts}/>}/>
-                    <Route path='/news' render={News}/>
-                    <Route path='/music' render={Music}/>
-                    <Route path='/settings' render={Settings}/>
-                </div>
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <div className="app-wrapper-content">
+                <Route path="/dialogs"
+                       render={() => <Dialogs
+                           dialogs={props.state.dialogsPage.dialogs}
+                           messages={props.state.dialogsPage.messages}/>}/>
+                <Route path="/profile"
+                       render={() => <Profile
+                           posts={props.state.profilePage.posts}/>}/>
+                <Route path="/news" render={News}/>
+                <Route path="/music" render={Music}/>
+                <Route path="/settings" render={Settings}/>
             </div>
+        </div>
     );
 }
 export default App;

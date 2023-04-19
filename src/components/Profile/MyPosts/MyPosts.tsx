@@ -7,14 +7,20 @@ import {ProfilePageType} from "../../../redux/state";
 export const MyPosts = (props: ProfilePageType) => {
 
     let postsElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCounter={p.likesCounter}/>)
+    const newPostElement = React.useRef<HTMLTextAreaElement>(null)
+    const addPost = () => {
+        if (newPostElement.current !== null) {
+            alert(newPostElement.current.value)
+        }
+    }
 
     return (
         <div className={s.postBlock}>
             <h3>My posts</h3>
             <div>
-                <div><textarea> </textarea></div>
+                <div><textarea ref={newPostElement}> </textarea></div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
