@@ -10,7 +10,8 @@ export const MyPosts = (props: ProfilePageType) => {
     const newPostElement = React.useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
         if (newPostElement.current !== null) {
-            alert(newPostElement.current.value)
+            props.addPost(newPostElement.current.value)
+            newPostElement.current.value = "";
         }
     }
 

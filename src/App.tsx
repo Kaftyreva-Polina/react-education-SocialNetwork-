@@ -11,6 +11,7 @@ import {Settings} from "./components/Settings/Settings";
 import {RootStateType} from "./redux/state";
 
 export type AppType = {
+    addPost: (postMessage: string) => void
     state: RootStateType
 }
 const App = (props: AppType) => {
@@ -26,7 +27,9 @@ const App = (props: AppType) => {
                            messages={props.state.dialogsPage.messages}/>}/>
                 <Route path="/profile"
                        render={() => <Profile
-                           posts={props.state.profilePage.posts}/>}/>
+                           posts={props.state.profilePage.posts}
+                           addPost={props.addPost}
+                       />}/>
                 <Route path="/news" render={News}/>
                 <Route path="/music" render={Music}/>
                 <Route path="/settings" render={Settings}/>

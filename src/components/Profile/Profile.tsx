@@ -8,7 +8,7 @@ export const Profile = (props: ProfilePageType) => {
 
     return <div>
         <ProfileInfo/>
-        <MyPosts posts={props.posts}/>
+        <MyPosts posts={props.posts} addPost={props.addPost}/>
     </div>
 }
 
