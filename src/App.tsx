@@ -10,11 +10,14 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {RootStateType} from "./redux/state";
 
-export type AppType = {
+
+export type AppPropsType = {
+    state: RootStateType,
     addPost: (postMessage: string) => void
-    state: RootStateType
+    addMessage: (newMessage: string) => void
 }
-const App = (props: AppType) => {
+
+const App = (props: AppPropsType) => {
 
     return (
         <div className="app-wrapper">
@@ -22,14 +25,9 @@ const App = (props: AppType) => {
             <Navbar/>
             <div className="app-wrapper-content">
                 <Route path="/dialogs"
-                       render={() => <Dialogs
-                           dialogs={props.state.dialogsPage.dialogs}
-                           messages={props.state.dialogsPage.messages}/>}/>
+                       render={() => <Dialogs dialogsPage={props.state.dialogsPage} addMessage={props.addMessage}/>}/>
                 <Route path="/profile"
-                       render={() => <Profile
-                           posts={props.state.profilePage.posts}
-                           addPost={props.addPost}
-                       />}/>
+                       render={() => <Profile profilePage={props.state.profilePage} addPost={props.addPost}/>}/>
                 <Route path="/news" render={News}/>
                 <Route path="/music" render={Music}/>
                 <Route path="/settings" render={Settings}/>

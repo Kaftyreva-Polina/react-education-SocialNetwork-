@@ -1,42 +1,39 @@
 import {rerenderEntireTree} from "../render";
 
-export type PostsType = {
-    id: number
-    message: string
-    likesCounter: number
-}
-
-export type DialogsType = {
-    id: number
-    name: string
-}
-
-export type MessagesType = {
-    id: number
-    message: string
+export type RootStateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+    sidebar: SidebarPageType
 }
 
 export type ProfilePageType = {
-    posts: Array<PostsType>
-    addPost: (newPostElement: string) => void
+    posts: PostType[],
+    updateText: string
 }
 
-type ProfilePropsPageType = {
-    posts: Array<PostsType>
+export type PostType = {
+    id: number,
+    message: string,
+    likesCounter: number
 }
 
 export type DialogsPageType = {
-    dialogs: Array<DialogsType>
-    messages: Array<MessagesType>
+    dialogsData: DialogPropsType[],
+    messagesData: MessagePropsType[]
 }
 
-type SidebarType = {}
-
-export type RootStateType = {
-    profilePage: ProfilePropsPageType
-    dialogsPage: DialogsPageType
-    sidebar: SidebarType
+export type DialogPropsType = {
+    id: number,
+    name: string
 }
+
+export type MessagePropsType = {
+    id: number,
+    message: string
+}
+
+type SidebarPageType = {}
+
 
 const state: RootStateType = {
     profilePage: {
@@ -44,9 +41,10 @@ const state: RootStateType = {
             {id: 1, message: "Hi, how are you?", likesCounter: 15},
             {id: 2, message: "It's my first post", likesCounter: 20}
         ],
+        updateText: ""
     },
     dialogsPage: {
-        dialogs: [
+        dialogsData: [
             {id: 1, name: "Dmitriy "},
             {id: 2, name: "Andrey "},
             {id: 3, name: "Svetlana"},
@@ -54,7 +52,7 @@ const state: RootStateType = {
             {id: 5, name: "Viktor"},
             {id: 6, name: "Valera"}
         ],
-        messages: [
+        messagesData: [
             {id: 1, message: "Hello"},
             {id: 2, message: "Hi"},
             {id: 3, message: "How are you?"}
@@ -64,7 +62,7 @@ const state: RootStateType = {
 }
 
 export const addPost = (postMessage: string) => {
-    const newPost = {
+    const newPost: PostType = {
         id: 5,
         message: postMessage,
         likesCounter: 0
@@ -72,6 +70,16 @@ export const addPost = (postMessage: string) => {
 
     state.profilePage.posts.push(newPost);
     rerenderEntireTree(state);
+}
+
+export const addMessage = (newMessage: string) => {
+    const Message: MessagePropsType = {
+        id: 4,
+        message: newMessage
+    }
+
+    state.dialogsPage.messagesData.push(Message);
+    rerenderEntireTree(state)
 }
 
 export default state;

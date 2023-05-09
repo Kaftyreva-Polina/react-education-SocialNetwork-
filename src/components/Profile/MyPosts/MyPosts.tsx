@@ -3,15 +3,21 @@ import s from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import {ProfilePageType} from "../../../redux/state";
 
+type PropsType = {
+    profilePage: ProfilePageType
+    addPost: (postMessage: string) => void
+}
 
-export const MyPosts = (props: ProfilePageType) => {
+export const MyPosts = (props: PropsType) => {
+    const postElements = props.profilePage.posts.map(post => {
+        return <Post key={post.id} message={post.message} likesCounter={post.likesCounter}/>
+    })
 
-    let postsElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCounter={p.likesCounter}/>)
     const newPostElement = React.useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
-        if (newPostElement.current !== null) {
+        if (newPostElement.current && newPostElement.current.value.length > 0) {
             props.addPost(newPostElement.current.value)
-            newPostElement.current.value = "";
+            newPostElement.current.value = ""
         }
     }
 
@@ -25,7 +31,7 @@ export const MyPosts = (props: ProfilePageType) => {
                 </div>
             </div>
             <div className={s.posts}>
-                {postsElements}
+                {postElements}
             </div>
         </div>
 
