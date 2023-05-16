@@ -1,4 +1,6 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {
+    console.log("State changed");
+}
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -63,6 +65,7 @@ const state: RootStateType = {
     sidebar: {}
 }
 
+
 export const addPost = () => {
     const newPost: PostType = {
         id: new Date().getTime(),
@@ -72,12 +75,12 @@ export const addPost = () => {
 
     state.profilePage.posts.unshift(newPost);
     state.profilePage.updateText = "";
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
 
 export const updatePostText = (postMessage: string) => {
     state.profilePage.updateText = postMessage;
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
 export const addMessage = () => {
     const Message: MessagePropsType = {
@@ -87,12 +90,16 @@ export const addMessage = () => {
 
     state.dialogsPage.messagesData.push(Message);
     state.dialogsPage.updateMessageText = "";
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
 
 export const updateMessageText = (newMessage: string) => {
     state.dialogsPage.updateMessageText = newMessage;
-    rerenderEntireTree(state);
+    rerenderEntireTree();
+}
+
+export const subscribe = (observer: () => void) => {
+    rerenderEntireTree = observer;
 }
 
 export default state;
