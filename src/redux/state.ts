@@ -1,7 +1,3 @@
-let rerenderEntireTree = () => {
-    console.log("State changed");
-}
-
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -37,14 +33,25 @@ export type MessagePropsType = {
 
 type SidebarPageType = {}
 
+type StoreType = {
+    _state: RootStateType
+    addPost: () => void
+    updatePostText: (postMessage: string) => void
+    addMessage: () => void
+    updateMessageText: (newMessage: string) => void
+    _rerenderEntireTree: () => void
+    subscribe: (observer: ()=> void) => void
+    getState: () => RootStateType
+}
 
-const state: RootStateType = {
+export const store: StoreType = {
+    _state:  {
     profilePage: {
         posts: [
             {id: 1, message: "Hi, how are you?", likesCounter: 15},
             {id: 2, message: "It's my first post", likesCounter: 20}
         ],
-        updateText: ""
+            updateText: ""
     },
     dialogsPage: {
         dialogsData: [
@@ -55,51 +62,54 @@ const state: RootStateType = {
             {id: 5, name: "Viktor"},
             {id: 6, name: "Valera"}
         ],
-        messagesData: [
+            messagesData: [
             {id: 1, message: "Hello"},
             {id: 2, message: "Hi"},
             {id: 3, message: "How are you?"}
         ],
-        updateMessageText: ""
+            updateMessageText: ""
     },
     sidebar: {}
-}
+},
+    addPost()  {
+        const newPost: PostType = {
+            id: new Date().getTime(),
+            message: this._state.profilePage.updateText,
+            likesCounter: 0
+        };
 
+        this._state.profilePage.posts.unshift(newPost);
+        this._state.profilePage.updateText = "";
+        this._rerenderEntireTree();
+    },
+    updatePostText(postMessage: string) {
+        this._state.profilePage.updateText = postMessage;
+        this._rerenderEntireTree();
+    },
+    addMessage() {
+        const Message: MessagePropsType = {
+            id: new Date().getTime(),
+            message: this._state.dialogsPage.updateMessageText
+        }
 
-export const addPost = () => {
-    const newPost: PostType = {
-        id: new Date().getTime(),
-        message: state.profilePage.updateText,
-        likesCounter: 0
-    };
-
-    state.profilePage.posts.unshift(newPost);
-    state.profilePage.updateText = "";
-    rerenderEntireTree();
-}
-
-export const updatePostText = (postMessage: string) => {
-    state.profilePage.updateText = postMessage;
-    rerenderEntireTree();
-}
-export const addMessage = () => {
-    const Message: MessagePropsType = {
-        id: new Date().getTime(),
-        message: state.dialogsPage.updateMessageText
+        this._state.dialogsPage.messagesData.push(Message);
+        this._state.dialogsPage.updateMessageText = "";
+        this._rerenderEntireTree();
+    },
+    updateMessageText(newMessage: string) {
+        this._state.dialogsPage.updateMessageText = newMessage;
+        this._rerenderEntireTree();
+    },
+    _rerenderEntireTree() {
+        console.log("State changed");
+    },
+    subscribe(observer) {
+        this._rerenderEntireTree = observer;
+    },
+    getState() {
+        return this._state
     }
-
-    state.dialogsPage.messagesData.push(Message);
-    state.dialogsPage.updateMessageText = "";
-    rerenderEntireTree();
 }
 
-export const updateMessageText = (newMessage: string) => {
-    state.dialogsPage.updateMessageText = newMessage;
-    rerenderEntireTree();
-}
 
-export const subscribe = (observer: () => void) => {
-    rerenderEntireTree = observer;
-}
-
-export default state;
+export default store;
