@@ -1,11 +1,11 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ActionPropsType, ProfilePageType} from "../../redux/state";
+import {ActionsPropsType, ProfilePageType} from "../../redux/state";
 
 type ProfileProps = {
     profilePage: ProfilePageType
-    dispatch: (action: ActionPropsType) => void
+    dispatch: (action: ActionsPropsType) => void
 }
 export const Profile = (props: ProfileProps) => {
 

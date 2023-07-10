@@ -38,28 +38,44 @@ export type StoreType = {
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
-    dispatch: (action: ActionPropsType) => void
+    dispatch: (action: ActionsPropsType) => void
 }
 
-export type ActionPropsType = AddPostActionType | UpdatePostTextActionType
+export type ActionsPropsType = AddPostActionType | UpdatePostTextActionType
     | AddMessageActionType | UpdateMessageTextActionType
 
-type AddPostActionType = {
-    type: "ADD-POST"
+type AddPostActionType = ReturnType<typeof addPostAC>
+
+type UpdatePostTextActionType = ReturnType<typeof updatePostTextAC>
+
+type AddMessageActionType = ReturnType<typeof addMessageAC>
+
+type UpdateMessageTextActionType = ReturnType<typeof updateMessageTextAC>
+
+export const addPostAC = ()=> {
+    return {
+        type: "ADD-POST"
+    } as const
 }
 
-type UpdatePostTextActionType = {
-    type: "UPDATE-POST-TEXT"
-    postMessage: string
+export const updatePostTextAC = (postMessage: string) => {
+    return {
+        type: "UPDATE-POST-TEXT",
+        postMessage: postMessage
+    } as const
 }
 
-type AddMessageActionType = {
-    type: "ADD-MESSAGE"
+export const addMessageAC = () => {
+    return {
+        type: "ADD-MESSAGE"
+    } as const
 }
 
-type UpdateMessageTextActionType = {
-    type: "UPDATE-MESSAGE-TEXT"
-    newMessage: string
+export const updateMessageTextAC = (newMessage: string) => {
+    return {
+        type: "UPDATE-MESSAGE-TEXT",
+        newMessage: newMessage
+    } as const
 }
 
 export const store: StoreType = {
