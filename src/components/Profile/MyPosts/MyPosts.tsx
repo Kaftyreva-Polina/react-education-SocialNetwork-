@@ -1,12 +1,11 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {ProfilePageType} from "../../../redux/state";
+import {ActionPropsType, ProfilePageType} from "../../../redux/state";
 
 type PropsType = {
     profilePage: ProfilePageType
-    addPost: () => void
-    updatePostText: (postMessage: string) => void
+    dispatch: (action: ActionPropsType) => void
 }
 
 export const MyPosts = (props: PropsType) => {
@@ -16,11 +15,11 @@ export const MyPosts = (props: PropsType) => {
     })
 
     const addPostHandler = () => {
-        props.addPost();
+        props.dispatch({type: "ADD-POST"})
     }
 
     const updatePostTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updatePostText(e.currentTarget.value);
+        props.dispatch({type: "UPDATE-POST-TEXT", postMessage: e.currentTarget.value})
     }
 
     const onKeyBoardHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
