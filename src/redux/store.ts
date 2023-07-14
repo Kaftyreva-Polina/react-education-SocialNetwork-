@@ -49,8 +49,7 @@ export type ActionsPropsType = AddPostActionType | UpdatePostTextActionType
     | AddMessageActionType | UpdateMessageTextActionType
 
 
-
-export const store: StoreType = {
+const store: StoreType = {
     _state: {
         profilePage: {
             posts: [
