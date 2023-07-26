@@ -10,7 +10,9 @@ const rootReducer = combineReducers({
     sidebar: sidebarReducer
 })
 
-export type AppRootReducerType = ReturnType<typeof rootReducer>
+type RootState = typeof rootReducer
+
+export type ReduxStateType = ReturnType<RootState>
 
 export const store = createStore(rootReducer)
 

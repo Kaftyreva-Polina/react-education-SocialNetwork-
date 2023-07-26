@@ -2,12 +2,12 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from "./Dialogs.module.css"
 import DialogsItem from "./DialogsItem/DialogsItem";
 import Message from "./DialogsItem/Message";
-import {ActionsPropsType, DialogsPageType} from "../../redux/store";
-import {addMessageAC, updateMessageTextAC} from "../../redux/dialogs-reducer";
+import {DialogsPageType} from "../../redux/store";
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType
-    dispatch: (action: ActionsPropsType) => void
+    addMessage: () => void
+    updateMessageText: (newMessage: string) => void
 }
 export const Dialogs = (props: DialogsPagePropsType) => {
 
@@ -15,11 +15,12 @@ export const Dialogs = (props: DialogsPagePropsType) => {
     let messagesElements = props.dialogsPage.messagesData.map(m => <Message id={m.id} message={m.message}/>)
 
     const addMessageHandler = () => {
-        props.dispatch(addMessageAC())
+        props.addMessage()
     }
 
     const updateMessageTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.dispatch(updateMessageTextAC(e.currentTarget.value))
+        let newMessageText = e.currentTarget.value
+        props.updateMessageText(newMessageText)
     }
 
     const onKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {

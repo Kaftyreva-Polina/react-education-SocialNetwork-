@@ -1,12 +1,12 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
+import React, {KeyboardEvent} from "react";
 import s from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {ActionsPropsType, ProfilePageType} from "../../../redux/store";
-import {addPostAC, updatePostTextAC} from "../../../redux/profile-reducer";
+import {ProfilePageType} from "../../../redux/store";
 
 type PropsType = {
     profilePage: ProfilePageType
-    dispatch: (action: ActionsPropsType) => void
+    addPost: () => void
+    updatePost: (updatePostText: string) => void
 }
 
 
@@ -17,11 +17,11 @@ export const MyPosts = (props: PropsType) => {
     })
 
     const addPostHandler = () => {
-        props.dispatch(addPostAC())
+        props.addPost()
     }
 
-    const updatePostTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updatePostTextAC(e.currentTarget.value))
+    const updatePostTextHandler = (e: any) => {
+        props.updatePost(e.currentTarget.value)
     }
 
     const onKeyBoardHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
