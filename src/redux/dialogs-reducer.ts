@@ -1,7 +1,21 @@
-import {ActionsPropsType, DialogsPageType, MessagePropsType} from "./store";
-
 export type AddMessageActionType = ReturnType<typeof addMessageAC>
 export type UpdateMessageTextActionType = ReturnType<typeof updateMessageTextAC>
+type ActionsPropsType = AddMessageActionType | UpdateMessageTextActionType
+
+export type DialogsPageType = {
+    dialogsData: DialogPropsType[],
+    messagesData: MessagePropsType[],
+    updateMessageText: string
+}
+export type DialogPropsType = {
+    id: number,
+    name: string
+}
+
+export type MessagePropsType = {
+    id: number,
+    message: string
+}
 
 const initialState: DialogsPageType = {
     dialogsData: [
@@ -23,16 +37,13 @@ const initialState: DialogsPageType = {
 const dialogsReducer = (state = initialState, action: ActionsPropsType): DialogsPageType => {
     switch (action.type) {
         case "ADD-MESSAGE":
-            const Message: MessagePropsType = {
+            const newMessage: MessagePropsType = {
                 id: new Date().getTime(),
                 message: state.updateMessageText
             }
-            state.messagesData.push(Message);
-            state.updateMessageText = "";
-            return state
+            return {...state, messagesData: [...state.messagesData, newMessage], updateMessageText: ""}
         case "UPDATE-MESSAGE-TEXT":
-            state.updateMessageText = action.newMessage;
-            return state
+            return {...state, updateMessageText: action.newMessage}
         default:
             return state
     }

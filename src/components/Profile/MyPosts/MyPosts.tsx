@@ -1,7 +1,8 @@
-import React, {KeyboardEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {ProfilePageType} from "../../../redux/store";
+import {ProfilePageType} from "../../../redux/profile-reducer";
+
 
 type PropsType = {
     profilePage: ProfilePageType
@@ -11,7 +12,7 @@ type PropsType = {
 
 
 export const MyPosts = (props: PropsType) => {
-
+    debugger
     const postElements = props.profilePage.posts.map(post => {
         return <Post key={post.id} message={post.message} likesCounter={post.likesCounter}/>
     })
@@ -20,7 +21,7 @@ export const MyPosts = (props: PropsType) => {
         props.addPost()
     }
 
-    const updatePostTextHandler = (e: any) => {
+    const updatePostTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updatePost(e.currentTarget.value)
     }
 

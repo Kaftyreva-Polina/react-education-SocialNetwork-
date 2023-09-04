@@ -10,13 +10,13 @@ const rootReducer = combineReducers({
     sidebar: sidebarReducer
 })
 
-type RootState = typeof rootReducer
-
-export type ReduxStateType = ReturnType<RootState>
+type RootStateType = typeof rootReducer
+export type ReduxStateType = ReturnType<RootStateType>
 
 export const store = createStore(rootReducer)
 
 
 //@ts-ignore
 window.store = store
+
 
