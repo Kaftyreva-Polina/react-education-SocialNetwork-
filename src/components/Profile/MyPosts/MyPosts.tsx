@@ -12,7 +12,7 @@ type PropsType = {
 
 
 export const MyPosts = (props: PropsType) => {
-    debugger
+
     const postElements = props.profilePage.posts.map(post => {
         return <Post key={post.id} message={post.message} likesCounter={post.likesCounter}/>
     })

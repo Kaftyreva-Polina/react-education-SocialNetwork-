@@ -12,8 +12,8 @@ type DialogsPagePropsType = {
 }
 export const Dialogs = (props: DialogsPagePropsType) => {
 
-    let dialogsElements = props.dialogsPage.dialogsData.map(d => <DialogsItem id={d.id} name={d.name}/>)
-    let messagesElements = props.dialogsPage.messagesData.map(m => <Message id={m.id} message={m.message}/>)
+    let dialogsElements = props.dialogsPage.dialogsData.map(d => <DialogsItem key={d.id} id={d.id} name={d.name}/>)
+    let messagesElements = props.dialogsPage.messagesData.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
 
     const addMessageHandler = () => {
         props.addMessage()
